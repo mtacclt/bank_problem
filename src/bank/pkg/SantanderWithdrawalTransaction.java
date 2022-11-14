@@ -1,23 +1,13 @@
 package bank.pkg;
 
-public class SantanderWithdrawalTransaction implements Transaction,Runnable{
-    SantanderBank bank;
-    int id;
-    int value;
-
-    public SantanderWithdrawalTransaction(SantanderBank bank,int id,int value){
-        this.bank = bank;
-        this.id = id;
-        this.value = value*(-1);
-    }
+public class WithdrawalTransaction implements Transaction,Runnable{
     @Override
-    public void runTransaction() {
-        SantanderUpdateOperation operation = this.bank.getStorageSystem().createUpdateOperation(this.id,this.value);
-        this.bank.getStorageSystem().performOperation(operation);
+    public void processTransaction() {
+    // perform business logic of the transaction
     }
 
     @Override
     public void run() {
-    this.runTransaction();
+    // run thread that executes operation
     }
 }
