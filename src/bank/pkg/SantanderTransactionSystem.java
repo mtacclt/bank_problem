@@ -8,19 +8,25 @@ public class SantanderTransactionSystem implements TransactionSystem{
     }
 
     @Override
-    public void processTransaction(Object transaction) {
-        //    if (obj instanceof C) {
-        ////your code
-        //    }
+    public void processTransaction(SantanderWithdrawalTransaction transaction) {
+        Thread transactionThread = new Thread(transaction,"transactionThread");
+        transactionThread.start();
+    }
+
+    public void processTransaction(SantanderDepositTransaction transaction) {
+        Thread transactionThread = new Thread(transaction,"transactionThread");
+        transactionThread.start();
     }
 
     public void createTransaction(int transactionCode,int customerId,int value){
         if (transactionCode == 1){
-            DepositTransaction transaction = new DepositTransaction();
+            SantanderDepositTransaction transaction = new SantanderDepositTransaction(this.bank,customerId,value);
             System.out.println("created deposit transaction");
+            this.processTransaction(transaction);
         }else {
-            WithdrawalTransaction transaction = new WithdrawalTransaction();
+            SantanderWithdrawalTransaction transaction = new SantanderWithdrawalTransaction(this.bank,customerId,value);
             System.out.println("created withdrawal transaction");
+            this.processTransaction(transaction);
         }
     }
 }
