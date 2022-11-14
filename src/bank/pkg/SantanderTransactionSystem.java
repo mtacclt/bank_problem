@@ -13,4 +13,14 @@ public class SantanderTransactionSystem implements TransactionSystem{
         ////your code
         //    }
     }
+
+    public void createTransaction(int transactionCode,int customerId,int value){
+        if (transactionCode == 1){
+            DepositTransaction transaction = new DepositTransaction();
+            System.out.println("created deposit transaction");
+        }else {
+            WithdrawalTransaction transaction = new WithdrawalTransaction();
+            System.out.println("created withdrawal transaction");
+        }
+    }
 }
