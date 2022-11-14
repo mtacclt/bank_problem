@@ -1,9 +1,9 @@
 package bank.pkg;
 
 public class SantanderWithdrawalTransaction implements Transaction,Runnable {
-    SantanderBank bank;
-    int id;
-    int value;
+    private SantanderBank bank;
+    private int id;
+    private int value;
 
     public SantanderWithdrawalTransaction(SantanderBank bank, int id, int value) {
         this.bank = bank;
