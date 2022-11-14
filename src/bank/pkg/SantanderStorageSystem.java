@@ -1,6 +1,8 @@
 package bank.pkg;
 
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SantanderStorageSystem implements StorageSystem{
     private SantanderBank bank;
@@ -10,9 +12,11 @@ public class SantanderStorageSystem implements StorageSystem{
         this.storage = storage;
     }
     @Override
-    public void performOperation(SantanderBackupOperation operation) {
-        Thread backupOperation = new Thread(operation,"backup operation");
-        backupOperation.start();
+    public void performBackup() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        this.storage.getAccounts().forEach((key, value) -> {
+            executorService.submit(new SantanderBackupOperation(this.storage,key,value));
+        });
     }
 
     @Override
@@ -23,9 +27,5 @@ public class SantanderStorageSystem implements StorageSystem{
 
     public SantanderUpdateOperation createUpdateOperation(int key,int value){
         return new SantanderUpdateOperation(this.storage,key,value);
-    }
-
-    public SantanderBackupOperation createBackupOperation(Map<Integer, Integer> accounts, Map<Integer, Integer> backup){
-        return new SantanderBackupOperation(this.storage,accounts,backup);
     }
 }

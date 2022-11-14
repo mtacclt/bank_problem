@@ -1,25 +1,30 @@
 package bank.pkg;
 
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SantanderBackupOperation implements Operation,Runnable{
 
     private SantanderStorage storage;
-    private Map<Integer,Integer> accounts;
-    private Map<Integer,Integer> backupAccounts;
+    private int key;
+    private int value;
 
-    public SantanderBackupOperation(SantanderStorage storage, Map<Integer, Integer> accounts, Map<Integer, Integer> backup) {
+    public SantanderBackupOperation(SantanderStorage storage,int key, int value) {
         this.storage = storage;
-        this.accounts = accounts;
-        this.backupAccounts = backup;
+        this.key = key;
+        this.value = value;
     }
 
     @Override
     public void runOperation() {
-    // perform business logic of the operation
+        synchronized (this.storage.getBackup()){
+            this.storage.getBackup().replace(this.key,this.value);
+            this.storage.getBackup().notifyAll();
+        }
     }
     @Override
     public void run() {
-    // run thread that processes the Operation
+    this.runOperation();
     }
 }
