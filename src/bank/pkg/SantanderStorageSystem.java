@@ -22,7 +22,7 @@ public class SantanderStorageSystem implements StorageSystem{
     }
 
     public SantanderUpdateOperation createUpdateOperation(int key,int value){
-        return new SantanderUpdateOperation(this.storage);
+        return new SantanderUpdateOperation(this.storage,key,value);
     }
 
     public SantanderBackupOperation createBackupOperation(Map<Integer, Integer> accounts, Map<Integer, Integer> backup){
