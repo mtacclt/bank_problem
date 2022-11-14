@@ -1,6 +1,6 @@
 package bank.pkg;
 
-public class DepositTransaction implements Transaction,Runnable{
+public class SantanderDepositTransaction implements Transaction,Runnable{
     @Override
     public void processTransaction() {
     // perform business logic of the transaction
@@ -8,6 +8,6 @@ public class DepositTransaction implements Transaction,Runnable{
 
     @Override
     public void run() {
-    // run thread that processes the transaction
+
     }
 }
