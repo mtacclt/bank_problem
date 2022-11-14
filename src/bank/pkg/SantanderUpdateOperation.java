@@ -14,11 +14,15 @@ public class SantanderUpdateOperation implements Operation,Runnable{
     @Override
     public void runOperation() {
         int replacementValue = this.storage.getAccounts().get(key) + value;
-        this.storage.getAccounts().replace(key,replacementValue);
+        synchronized (this.storage.getAccounts()){
+            this.storage.getAccounts().replace(key,replacementValue);
+            this.storage.getAccounts().notifyAll();
+        }
+
     }
 
     @Override
     public void run() {
-    // run thread that processes the operation
+    this.runOperation();
     }
 }
