@@ -13,9 +13,13 @@ public class SantanderUpdateOperation implements Operation,Runnable{
 
     @Override
     public void runOperation() {
+        System.out.println("key: "+key+" value: "+value);
         int replacementValue = this.storage.getAccounts().get(key) + value;
+        System.out.println("ran update operation");
         synchronized (this.storage.getAccounts()){
             this.storage.getAccounts().replace(key,replacementValue);
+            System.out.println("replaced value");
+            System.out.println("new value is"+this.storage.getAccounts().get(key));
             this.storage.getAccounts().notifyAll();
         }
 

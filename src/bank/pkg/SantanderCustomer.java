@@ -7,11 +7,13 @@ public class SantanderCustomer extends AbstractCustomer{
     private SantanderTransactionSystem transactionSystem;
 
     public SantanderCustomer(String name, int id) {
-        super(name, id);
+        this.name = name;
+        this.id = id;
     }
 
     public SantanderCustomer(String name, int id,SantanderTransactionSystem transactionSystem) {
-        super(name, id);
+        this.id = id;
+        this.name = name;
         this.transactionSystem = transactionSystem;
     }
     public String getName() {
@@ -31,7 +33,7 @@ public class SantanderCustomer extends AbstractCustomer{
     }
 
     public void deposit(int value){
-        this.transactionSystem.createTransaction(1,this.id,value);
+        this.transactionSystem.createTransaction(1,id,value);
     }
 
     public void withdraw(int value){

@@ -10,6 +10,7 @@ public class SantanderStorageSystem implements StorageSystem{
     public SantanderStorageSystem(SantanderBank bank,SantanderStorage storage){
         this.bank = bank;
         this.storage = storage;
+        bank.setStorageSystem(this);
     }
     @Override
     public void performBackup() {

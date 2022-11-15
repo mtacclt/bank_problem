@@ -2,12 +2,13 @@ package bank.pkg;
 
 public class SantanderBank extends AbstractBank{
     private String name;
-    private String Location;
+    private String location;
     private SantanderStorageSystem storageSystem;
     private SantanderTransactionSystem transactionSystem;
 
     public SantanderBank(String name, String location) {
-        super(name, location);
+        this.name = name;
+        this.location = location;
     }
 
     public String getName() {
@@ -18,12 +19,12 @@ public class SantanderBank extends AbstractBank{
         this.name = name;
     }
 
-    public String getLocation() {
-        return Location;
+    public String getlocation() {
+        return location;
     }
 
     public void setLocation(String location) {
-        Location = location;
+        location = location;
     }
 
     public SantanderStorageSystem getStorageSystem() {

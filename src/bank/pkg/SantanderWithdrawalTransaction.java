@@ -14,6 +14,7 @@ public class SantanderWithdrawalTransaction implements Transaction,Runnable {
     @Override
     public void runTransaction() {
         SantanderUpdateOperation operation = this.bank.getStorageSystem().createUpdateOperation(this.id, this.value);
+        System.out.println("ran withdrawal transaction, values: "+id+" "+value);
         this.bank.getStorageSystem().performOperation(operation);
     }
 
