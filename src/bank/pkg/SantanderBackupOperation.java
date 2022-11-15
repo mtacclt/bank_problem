@@ -21,6 +21,7 @@ public class SantanderBackupOperation implements Operation,Runnable{
         synchronized (this.storage.getBackup()){
             this.storage.getBackup().replace(this.key,this.value);
             this.storage.getBackup().notifyAll();
+
         }
     }
     @Override

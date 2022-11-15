@@ -1,9 +1,13 @@
 package bank.pkg;
 
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 public class SantanderUpdateOperation implements Operation,Runnable{
     private SantanderStorage storage;
     private int key;
     private int value;
+
+    private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
 
     public SantanderUpdateOperation(SantanderStorage storage,int key,int value) {
         this.storage = storage;
@@ -13,16 +17,16 @@ public class SantanderUpdateOperation implements Operation,Runnable{
 
     @Override
     public void runOperation() {
-        System.out.println("key: "+key+" value: "+value);
-        int replacementValue = this.storage.getAccounts().get(key) + value;
-        System.out.println("ran update operation");
-        synchronized (this.storage.getAccounts()){
-            this.storage.getAccounts().replace(key,replacementValue);
-            System.out.println("replaced value");
-            System.out.println("new value is"+this.storage.getAccounts().get(key));
-            this.storage.getAccounts().notifyAll();
-        }
+        int replacement =readMap(key)+value;
+        updateMap(key,replacement);
+    }
 
+    public int readMap (int key){
+        return this.storage.getAccounts().get(key);
+    }
+
+    public void updateMap (int key,int replacementValue){
+        this.storage.getAccounts().replace(key,replacementValue);
     }
 
     @Override

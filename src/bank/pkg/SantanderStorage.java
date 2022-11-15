@@ -2,11 +2,12 @@ package bank.pkg;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SantanderStorage extends AbstractStorage{
 
-    private Map<Integer,Integer> accounts = new HashMap<Integer, Integer>();
-    private Map<Integer,Integer> backup = new HashMap<Integer, Integer>();
+    private Map<Integer,Integer> accounts = new ConcurrentHashMap<Integer,Integer>();
+    private Map<Integer,Integer> backup = new ConcurrentHashMap<Integer,Integer>();
 
     public SantanderStorage(Map<Integer, Integer> accounts, Map<Integer, Integer> backup) {
         this.accounts = accounts;

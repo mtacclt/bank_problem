@@ -27,7 +27,7 @@ public class SantanderTransactionSystem implements TransactionSystem{
             this.processTransaction(transaction);
         }else {
             SantanderWithdrawalTransaction transaction = new SantanderWithdrawalTransaction(this.bank,customerId,value);
-            System.out.println("created withdrawal transaction, values: "+customerId+value);
+            System.out.println("created withdrawal transaction, values: "+customerId+" "+value);
             this.processTransaction(transaction);
         }
     }
